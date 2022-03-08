@@ -7,9 +7,7 @@ Numpy and Pytorch.
 
 ## Dependencies
 
-**omnipyseed** does not require any non-essential Python package. In case Numpy
-or Pytorch are not installed on the system and are not used in the source code
-they will be ignored from omnipyseed.
+**omnipyseed** does not depend on any non-essential Python package.
 
 
 ## Installation
@@ -40,3 +38,10 @@ if __name__ == '__main__':
     y = np.sin(2*np.pi*5*x)
     print(y)
 ```
+
+## Caveat
+
+Please do not use **omnipyseed** if you'd like to use different random states
+for different random parts of your project. Instead you should instantiate 
+generator objects with a seed and pass it around (*e.g.*, 
+numpy.random.default_rng(*seed*)). 
