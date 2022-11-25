@@ -19,7 +19,7 @@ def is_package_available(package_name):
     return available
 
 
-def seed_numpy():
+def numpy_seed(seed=None):
     """
     It imports and seeds Numpy, if it's installed on the system.
 
@@ -31,10 +31,13 @@ def seed_numpy():
     """
     if is_package_available("numpy"):
         import numpy as np
-        np.random.seed(random.randint(1, 1E6))
+        if seed is None:
+            np.random.seed(random.randint(1, 1E6))
+        else:
+            np.random.seed(seed)
 
 
-def seed_torch():
+def torch_seed(seed=None):
     """
     It imports and seeds Torch, if it's installed.
 
@@ -46,11 +49,15 @@ def seed_torch():
     """
     if is_package_available("torch"):
         import torch
-        torch.manual_seed(random.randint(1, 1E6))
-        torch.cuda.manual_seed_all(random.randint(1, 1E6))
+        if seed is None:
+            torch.manual_seed(random.randint(1, 1E6))
+            torch.cuda.manual_seed_all(random.randint(1, 1E6))
+        else:
+            torch.manual_seed(seed)
+            torch.cuda.manual_seed_all(seed)
 
 
-def seed_python():
+def python_seed(seed=None):
     """
     It seeds OS-based Python RNGs.
 
@@ -60,8 +67,11 @@ def seed_python():
     Returns:
         Void
     """
-    os_seed = random.randint(1, 1E6)
-    os.environ['PYTHONHASHSEED'] = str(os_seed)
+    if seed is None:
+        os_seed = random.randint(1, 1E6)
+        os.environ['PYTHONHASHSEED'] = str(os_seed)
+    else:
+        os.environ['PYTHONHASHSEED'] = str(seed)
 
 
 def universal_seed(seed=1234):
@@ -76,6 +86,6 @@ def universal_seed(seed=1234):
         void
     """
     random.seed(seed)
-    seed_numpy()
-    seed_torch()
-    seed_python()
+    numpy_seed(seed=seed)
+    torch_seed(seed=seed)
+    python_seed(seed=seed)

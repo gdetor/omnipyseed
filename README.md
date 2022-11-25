@@ -28,12 +28,12 @@ $ pip install .
 
 ```
 import numpy as np
-from omnipyseed import seeding      # import the seeding module from omnipyseed
+from omnipyseed import set_manual_seeds    # import the seeding module from omnipyseed
 
 
 if __name__ == '__main__':
-    seeding.universal_seed(13)      # call the universal_seed function to seed
-                                    # Python and Numpy
+    set_manual_seeds.universal_seed(13)     # call the universal_seed function to seed
+                                            # Python and Numpy
     x = np.linspace(-1, 1, 10)
     y = np.sin(2*np.pi*5*x)
     print(y)
